@@ -2,9 +2,18 @@
 #define JOB_QUEUE_H
 
 #include <pthread.h>
+#include <stdbool.h>
+
+struct job
+{
+  void *data;
+};
 
 struct job_queue {
-  int dummy;
+  struct job *jobs;
+  bool isdestroyed;
+  int capacity;
+  int InUseCapacity;
 };
 
 // Initialise a job queue with the given capacity.  The queue starts out
