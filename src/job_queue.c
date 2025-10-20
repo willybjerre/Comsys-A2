@@ -5,11 +5,10 @@
 #include "job_queue.h"
 
 int job_queue_init(struct job_queue *job_queue, int capacity) {
-  struct job *jobs = malloc(sizeof(struct job) * capacity);
-  if (jobs == NULL) {
+  job_queue->jobs = malloc(sizeof(struct job) * capacity);
+  if (job_queue->jobs == NULL) {
     return -1;
   }
-  job_queue->jobs = jobs;
   job_queue->isdestroyed = false;
   job_queue->capacity = capacity;
   job_queue->InUseCapacity = 0;
@@ -50,7 +49,9 @@ int job_queue_push(struct job_queue *job_queue, void *data) {
 
 int job_queue_pop(struct job_queue *job_queue, void **data) {
   if (job_queue->InUseCapacity == 0) {
-    job_queue_destroy(job_queue);
+    return -1;
+  }
+  if (job_queue->isdestroyed) {
     return -1;
   }
   else {
