@@ -44,6 +44,7 @@ int job_queue_push(struct job_queue *job_queue, void *data) {
     new_job.data = data;
     job_queue->InUseCapacity++;
     job_queue->jobs[job_queue->InUseCapacity] = new_job;
+    return 0;
   }
 }
 
