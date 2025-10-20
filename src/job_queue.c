@@ -26,6 +26,9 @@ int job_queue_destroy(struct job_queue *job_queue) {
       free(&job_queue->jobs[i]);
     }
     job_queue->isdestroyed = true;
+    for (int i = 0; i < job_queue->capacity; i++) {
+      free(job_queue->jobs[i].data);
+    }
     free(job_queue);
   }
   return 0;
