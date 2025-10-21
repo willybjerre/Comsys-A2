@@ -4,17 +4,19 @@
 #include <pthread.h>
 #include <stdbool.h>
 
-struct job
-{
-  void *data;
+struct job_queue {
+  void **buf;              // lagerplads til jobs (cirkulær buffer)
+  int capacity;            // maks antal elementer i køen
+  int size;                // hvor mange elementer der aktuelt er
+  int head;                // position for næste pop (læse)
+  int tail;                // position for næste push (skrive)
+  bool destroyed;          // angiver om køen er lukket
+
+  pthread_mutex_t m;       // lås der beskytter køens tilstand
+  pthread_cond_t can_push; // bruges når der bliver plads i køen
+  pthread_cond_t can_pop;  // bruges når der kommer nye jobs
 };
 
-struct job_queue {
-  struct job *jobs;
-  bool isdestroyed;
-  int capacity;
-  int InUseCapacity;
-};
 
 // Initialise a job queue with the given capacity.  The queue starts out
 // empty.  Returns non-zero on error.
