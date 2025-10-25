@@ -5,11 +5,11 @@
 #include <stdbool.h>
 
 struct job_queue {
-  void **buf;              // lagerplads til jobs (cirkulær buffer)
+  void **buf;              // lagerplads til jobs 
   int capacity;            // maks antal elementer i køen
   int size;                // hvor mange elementer der aktuelt er
-  int head;                // position for næste pop (læse)
-  int tail;                // position for næste push (skrive)
+  int head;                // position for næste pop 
+  int tail;                // position for næste push 
   bool destroyed;          // angiver om køen er lukket
 
   pthread_mutex_t m;       // lås der beskytter køens tilstand

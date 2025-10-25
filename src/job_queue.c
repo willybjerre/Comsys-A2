@@ -59,7 +59,7 @@ int job_queue_pop(struct job_queue *q, void **data) {
     return -1;
   }
 
-  // Fjern data og opdater køposition
+  // Fjerner data og opdater køposition
   *data = q->buf[q->head];
   q->head = (q->head + 1) % q->capacity;
   q->size--;
