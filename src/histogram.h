@@ -17,7 +17,7 @@ static void move_lines(int n) {
 }
 
 // Clear from cursor to end of line.
-static void clear_line() {
+static void clear_line(void) {
   printf("\033[K");
 }
 

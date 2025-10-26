@@ -42,7 +42,7 @@ static void *worker_main(void *arg) {
       update_histogram(local, c);
 
       // Hver 100k bytes: merge + print, nulstil local
-      if ((i % 100000) == 0) {
+      if ((i % 1000000) == 0) {
         pthread_mutex_lock(&g_hist_mtx);
         merge_histogram(local, g_hist);
         print_histogram(g_hist);
@@ -125,7 +125,7 @@ int main(int argc, char * const *argv) {
 
   move_lines(9);
 
-  // Print - udskrift;
+  // slutprint;
   pthread_mutex_lock(&g_hist_mtx);
   print_histogram(g_hist);
   pthread_mutex_unlock(&g_hist_mtx);
